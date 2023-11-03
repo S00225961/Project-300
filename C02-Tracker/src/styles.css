@@ -1,16 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
-html {
+@import '~bootstrap/dist/css/bootstrap.css';
+
+body {
     background-color: #D0E7D2;
 }
 
 #c02TrackerHeading {
     text-align: center;
     color: #618264;
+    margin: 20px;
 }
 #introParagraph {
     text-align: center;
     color: #618264;
     padding: 20px;
     font-size: 20px;
+}
+#searchBarDiv {
+    margin-right: 10%;
+    margin-left: 10%;
+}
+.searchBar { 
+    width: 92%;
+    display: inline;
+}
+.searchBtn { 
+    margin-left: 20px;
 }
 
