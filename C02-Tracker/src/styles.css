@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+html {
+    background-color: #D0E7D2;
+}
+
+#c02TrackerHeading {
+    text-align: center;
+    color: #618264;
+}
+#introParagraph {
+    text-align: center;
+    color: #618264;
+    padding: 20px;
+    font-size: 20px;
+}
+
