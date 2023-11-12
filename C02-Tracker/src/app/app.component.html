@@ -1,8 +1,8 @@
 <h1 id="c02TrackerHeading">C02 Tracker</h1>
 <p id="introParagraph">Welcome to the C02 Tracker Web Application!<br>
-    Using our C02 Tracker, you'll be able to calculate the C02 produced by certain products, transportation and electricity.<br>
+    Using our C02 Tracker, you'll be able to calculate the C02 produced by food products, transportation and electricity.<br>
  Use the application features below to calculate your C02 today!</p>
- <h2 id="searchBarHeading">Enter product name or barcode below</h2>
+ <h2 id="searchBarHeading">Enter Product Name Below</h2>
  <app-search-bar (search)="handleSearch($event)"></app-search-bar>
  <app-display-products [jsonData]="searchResults"></app-display-products>
 

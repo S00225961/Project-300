@@ -7,13 +7,15 @@
           <h5 class="card-title">{{product.product_name}}</h5>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">C02 Total: {{product.ecoscore_data.agribalyse.co2_total}}</li>
+          <li class="list-group-item" *ngIf="product.ecoscore_data?.agribalyse?.co2_total != null">
+            1g of this product takes {{product.ecoscore_data.agribalyse.co2_total}}g of CO2 to produce
+          </li>
+          <li class="list-group-item" *ngIf="product.ecoscore_data?.agribalyse?.co2_total == null">
+            No C02 value for this product
+          </li>
         </ul>
-        <div class="card-body">
-        </div>
       </div>
     </div>
   </div>
 </div>
-
 
