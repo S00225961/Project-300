@@ -1,0 +1,19 @@
+<div class="container productListStyle">
+  <div class="row">
+    <div *ngFor="let product of jsonData.products" class="col-lg-3 col-md-6 mb-4">
+      <div class="card" style="width: 12rem;">
+        <img class="card-img-top" alt="Card image cap" [src]="product.image_url">
+        <div class="card-body">
+          <h5 class="card-title">{{product.product_name}}</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">C02 Total: {{product.ecoscore_data.agribalyse.co2_total}}</li>
+        </ul>
+        <div class="card-body">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

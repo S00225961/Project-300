@@ -6,12 +6,11 @@ import { Component, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./search-bar.component.css']
 })
 export class SearchBarComponent {
-  searchQuery: string = '';
+  searchQuery: string = "";
 
   @Output() search: EventEmitter<string> = new EventEmitter();
 
   onSearch() {
     this.search.emit(this.searchQuery); // Emit the search query to the parent component
   }
-
 }

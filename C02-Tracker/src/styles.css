@@ -4,7 +4,6 @@
 body {
     background-color: #D0E7D2;
 }
-
 #c02TrackerHeading {
     text-align: center;
     color: #618264;
@@ -16,6 +15,12 @@ body {
     padding: 20px;
     font-size: 20px;
 }
+#searchBarHeading {
+    text-align: center;
+    font-size: 20px;
+    color: #618264;
+    margin: 20px;
+}
 #searchBarDiv {
     margin-right: 10%;
     margin-left: 10%;
@@ -26,5 +31,8 @@ body {
 }
 .searchBtn { 
     margin-left: 20px;
+}
+.productListStyle {
+    margin: 100px;
 }
 

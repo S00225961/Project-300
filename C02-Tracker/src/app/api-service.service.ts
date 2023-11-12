@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { catchError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiServiceService {
-
-  private apiUrl = 'https://world.openfoodfacts.org/api/v2/search'; 
-
   constructor(private http: HttpClient) {}
 
-  searchItems(query: string): Observable<any> {
-    const url = `${this.apiUrl}?query=${query}`;
-    return this.http.get(url);
+  private apiUrl = 'https://world.openfoodfacts.org/cgi/search.pl?search_terms=';
+  searchItems(query: string): Observable<any>{
+    const url = `${this.apiUrl + query}&json=true`;
+    return this.http.get<any>(url);
   }
 }
