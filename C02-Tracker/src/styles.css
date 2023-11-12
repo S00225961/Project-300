@@ -21,17 +21,6 @@ body {
     color: #618264;
     margin: 20px;
 }
-#searchBarDiv {
-    margin-right: 10%;
-    margin-left: 10%;
-}
-.searchBar { 
-    width: 92%;
-    display: inline;
-}
-.searchBtn { 
-    margin-left: 20px;
-}
 .productListStyle {
     margin: 100px;
 }
