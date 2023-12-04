@@ -1,1 +1,72 @@
-<p>commute-tracker works!</p>
+<form [formGroup]="commuteForm" (ngSubmit)="onSubmit()">
+    <mat-card>
+        <mat-card-header>
+            <h1>Commute Tracker</h1>
+        </mat-card-header>
+      <mat-card-content>
+        <mat-form-field>
+          <input matInput placeholder="Distance (in miles)" formControlName="distance">
+          <mat-error *ngIf="commuteForm.get('distance')?.hasError('required')">
+            Please enter the distance of your commute.
+          </mat-error>
+          <mat-error *ngIf="commuteForm.get('distance')?.hasError('min')">
+            Distance must be greater than or equal to 0.
+          </mat-error>
+        </mat-form-field>
+      </mat-card-content>
+
+      <mat-card-content>
+        <mat-form-field>
+            <mat-label>Mode of Transport</mat-label>
+            <mat-select formControlName="modeOfTransport">
+              <mat-option *ngFor="let mode of transportModes" [value]="mode">
+                {{ mode }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="commuteForm.get('modeOfTransport')?.hasError('required')">
+              Please select the mode of transport.
+            </mat-error>
+          </mat-form-field>
+      </mat-card-content>
+
+      <mat-card-content>
+        <mat-form-field>
+            <mat-label>Frequency</mat-label>
+            <mat-select formControlName="frequency">
+              <mat-option *ngFor="let freq of commuteFrequencies" [value]="freq">
+                {{ freq }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="commuteForm.get('frequency')?.hasError('required')">
+              Please select the frequency of your commute.
+            </mat-error>
+          </mat-form-field>
+      </mat-card-content>
+
+      <mat-card-content>
+        <mat-form-field>
+            <input matInput placeholder="Time Taken (in hours)" formControlName="timeTaken">
+            <mat-error *ngIf="commuteForm.get('timeTaken')?.hasError('required')">
+              Please enter the time taken for your commute.
+            </mat-error>
+            <mat-error *ngIf="commuteForm.get('timeTaken')?.hasError('pattern')">
+              Time taken must be a positive number.
+            </mat-error>
+          </mat-form-field>
+      </mat-card-content>
+
+      <mat-card-content>
+        <mat-form-field>
+            <textarea matInput placeholder="Additional Notes" formControlName="additionalNotes"></textarea>
+          </mat-form-field>
+      </mat-card-content>
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+
+      <mat-card-content>
+        <div *ngIf="co2Produced !== null">
+            <h3>CO2 produced for commute: {{ co2Produced }} kg</h3>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </form>
+  
