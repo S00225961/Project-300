@@ -16,9 +16,7 @@
             "outputPath": "dist/c02-tracker",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
@@ -96,5 +94,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "b2aa74be-0201-4780-9bce-3a8d71904e01"
   }
 }

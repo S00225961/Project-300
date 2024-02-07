@@ -11,7 +11,11 @@ import { CommuteTrackerComponent } from './commute-tracker/commute-tracker.compo
 import { ElectricityTrackerComponent } from './electricity-tracker/electricity-tracker.component';
 import { HomeComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './material.module'; 
+import { MaterialModule } from './material.module';
+import { SignInComponent } from './sign-in/sign-in.component'; 
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { VerificationPopupComponent } from './verification-popup/verification-popup.component'; 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +23,10 @@ import { MaterialModule } from './material.module';
     DisplayProductsComponent,
     CommuteTrackerComponent,
     ElectricityTrackerComponent,
-    HomeComponent
+    HomeComponent,
+    SignInComponent, 
+    SignUpComponent,
+    VerificationPopupComponent 
   ],
   imports: [
     BrowserModule,
