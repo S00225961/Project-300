@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, Inject } from '@angular/core';
 import { AuthService } from '../auth.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-verification-popup',
@@ -11,18 +12,25 @@ export class VerificationPopupComponent {
   
   @Output() verificationComplete = new EventEmitter<boolean>();
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private dialogRef: MatDialogRef<VerificationPopupComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {}
 
-  // verify the code entered by the user
+  // Method to verify the code entered by the user
   verifyCode() {
-    // Call the verification method from AuthService
-    this.authService.verifyUserEmail(this.verificationCode).then(() => {
+    this.authService.verifyUserEmail(this.data.username, this.verificationCode).then(() => {
       this.verificationComplete.emit(true);
       console.log('Verification successful');
-    }).catch((error: any) => { 
+      this.dialogRef.close(); // Close the dialog when the verification is successful
+    }).catch((error: any) => {
       console.error('Verification failed', error);
     });
   }
+
+  // Method to handle cancel click if necessary
   onCancelClick() {
+    this.dialogRef.close(); // Close the dialog when the user clicks cancel
   }
 }
