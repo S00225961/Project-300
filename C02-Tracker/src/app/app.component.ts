@@ -1,6 +1,8 @@
 import { Component, OnInit} from '@angular/core';
 import { ApiServiceService } from './api-service.service';
 import { catchError, finalize } from 'rxjs/operators';
+import { AuthService } from './auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +10,8 @@ import { catchError, finalize } from 'rxjs/operators';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(private apiService: ApiServiceService) {}
+  isAuthenticated: boolean = true;
+  constructor(private apiService: ApiServiceService, private authService: AuthService) {}
 
   title = 'C02-Tracker';
   searchResults: any;
@@ -36,6 +39,11 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    this.authService.isAuthenticated().subscribe(isAuthenticated => {
+      this.isAuthenticated = isAuthenticated;
+    });
+  }
+  signOut(){
+    this.authService.signOut();
   }
 }

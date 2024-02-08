@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable} from 'rxjs';
 import {
   CognitoUserPool,
   AuthenticationDetails,
@@ -18,6 +19,7 @@ const userPool = new CognitoUserPool(poolData);
   providedIn: 'root',
 })
 export class AuthService {
+  public isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
   constructor() {}
 
   // Method to sign up a new user with attributes
@@ -84,6 +86,7 @@ export class AuthService {
       cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: (result) => {
           console.log('Authentication successful', result);
+          this.setAuthenticated(true);
           resolve(result); // User sign-in was successful
         },
         onFailure: (err) => {
@@ -101,9 +104,20 @@ export class AuthService {
       if (cognitoUser) {
         cognitoUser.signOut();
         resolve();
+        this.setAuthenticated(false);
       } else {
         reject(new Error('No user to sign out.'));
       }
     });
+  }
+
+  // Method to update authentication status
+  setAuthenticated(isAuthenticated: boolean): void {
+    this.isAuthenticatedSubject.next(isAuthenticated);
+  }
+
+  // Method to check authentication status
+  isAuthenticated(): Observable<boolean> {
+    return this.isAuthenticatedSubject.asObservable();
   }
 }
