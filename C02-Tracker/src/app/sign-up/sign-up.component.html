@@ -1,28 +1,42 @@
-<form (ngSubmit)="signUp()">
-  <mat-form-field appearance="fill">
-    <mat-label>Username</mat-label>
-    <input matInput [(ngModel)]="username" name="username" placeholder="Username" required>
-  </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Email</mat-label>
-    <input type="email" matInput [(ngModel)]="email" name="email" placeholder="Email" required>
-  </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <mat-label>Password</mat-label>
-    <input type="password" matInput [(ngModel)]="password" name="password" placeholder="Password" required>
-  </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <mat-label>First Name</mat-label>
-    <input matInput [(ngModel)]="givenName" name="givenName" placeholder="First Name" required>
-  </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <mat-label>Last Name</mat-label>
-    <input matInput [(ngModel)]="familyName" name="familyName" placeholder="Last Name" required>
-  </mat-form-field>
-
-  <button mat-raised-button color="primary" type="submit">Sign Up</button>
-</form>
+<div class="container signInAndOutBox">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="text-center">Sign In</h2>
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="signUp()">
+            <mat-form-field appearance="fill">
+              <mat-label>Username</mat-label>
+              <input matInput [(ngModel)]="username" name="username" placeholder="Username" required>
+            </mat-form-field>
+          
+            <mat-form-field appearance="fill">
+              <mat-label>Email</mat-label>
+              <input type="email" matInput [(ngModel)]="email" name="email" placeholder="Email" required>
+            </mat-form-field>
+          
+            <mat-form-field appearance="fill">
+              <mat-label>Password</mat-label>
+              <input type="password" matInput [(ngModel)]="password" name="password" placeholder="Password" required>
+            </mat-form-field>
+          
+            <mat-form-field appearance="fill">
+              <mat-label>First Name</mat-label>
+              <input matInput [(ngModel)]="givenName" name="givenName" placeholder="First Name" required>
+            </mat-form-field>
+          
+            <mat-form-field appearance="fill">
+              <mat-label>Last Name</mat-label>
+              <input matInput [(ngModel)]="familyName" name="familyName" placeholder="Last Name" required>
+            </mat-form-field>
+          
+            <button mat-raised-button color="primary" type="submit">Sign Up</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

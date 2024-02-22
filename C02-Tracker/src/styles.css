@@ -25,7 +25,12 @@ body {
 .productListStyle {
     margin: 100px;
 }
-
+mat-form-field {
+    width: 100%;
+}
+.signInAndOutBox {
+    margin-top: 100px;
+}
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

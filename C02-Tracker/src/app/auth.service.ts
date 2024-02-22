@@ -20,7 +20,11 @@ const userPool = new CognitoUserPool(poolData);
 })
 export class AuthService {
   public isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
-  constructor() {}
+
+  constructor() {
+    const sessionData = localStorage.getItem('userSession');
+    this.isAuthenticatedSubject.next(!!sessionData);
+  }
 
   // Method to sign up a new user with attributes
   signUp(username: string, password: string, email: string, givenName: string, familyName: string): Promise<any> {
@@ -81,20 +85,40 @@ export class AuthService {
       Username: username,
       Pool: userPool,
     });
-  
+
     return new Promise((resolve, reject) => {
       cognitoUser.authenticateUser(authenticationDetails, {
-        onSuccess: (result) => {
-          console.log('Authentication successful', result);
+        onSuccess: (session: CognitoUserSession) => {
+          console.log('Authentication successful', session);
           this.setAuthenticated(true);
-          resolve(result); // User sign-in was successful
+          localStorage.setItem('userSession', JSON.stringify({
+            username: username,
+            idToken: session.getIdToken().getJwtToken(),
+            accessToken: session.getAccessToken().getJwtToken(),
+            refreshToken: session.getRefreshToken().getToken()
+          }));
+          resolve(session);
         },
-        onFailure: (err) => {
-          console.error('Authentication failed', err);
-          reject(err);
-        },
+        onFailure: (error) => {
+          console.error('Authentication failed', error);
+          reject(error);
+        }
       });
     });
+
+    // return new Promise((resolve, reject) => {
+    //   cognitoUser.authenticateUser(authenticationDetails, {
+    //     onSuccess: (result) => {
+    //       console.log('Authentication successful', result);
+    //       this.setAuthenticated(true);
+    //       resolve(result); // User sign-in was successful
+    //     },
+    //     onFailure: (err) => {
+    //       console.error('Authentication failed', err);
+    //       reject(err);
+    //     },
+    //   });
+    // });
   }
 
   // Method to sign out the current user
@@ -103,6 +127,7 @@ export class AuthService {
     return new Promise((resolve, reject) => {
       if (cognitoUser) {
         cognitoUser.signOut();
+        localStorage.removeItem('userSession');
         resolve();
         this.setAuthenticated(false);
       } else {
@@ -120,4 +145,5 @@ export class AuthService {
   isAuthenticated(): Observable<boolean> {
     return this.isAuthenticatedSubject.asObservable();
   }
+  
 }
