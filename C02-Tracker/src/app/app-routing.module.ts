@@ -5,6 +5,7 @@ import { ElectricityTrackerComponent } from './electricity-tracker/electricity-t
 import { CommuteTrackerComponent } from './commute-tracker/commute-tracker.component';
 import { SignInComponent } from './sign-in/sign-in.component'; 
 import { SignUpComponent } from './sign-up/sign-up.component'; 
+import { StatisticsComponent } from './statistics/statistics.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'commute', component: CommuteTrackerComponent },
   { path: 'sign-in', component: SignInComponent }, 
   { path: 'sign-up', component: SignUpComponent }, 
+  { path: 'statistics', component: StatisticsComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 
