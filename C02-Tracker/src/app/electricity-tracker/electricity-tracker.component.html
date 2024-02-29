@@ -17,15 +17,26 @@
 
       <mat-card-content>
         <mat-form-field>
-            <input matInput placeholder="Time Used (in hours)" formControlName="timeUsedInHours">
-            <mat-error *ngIf="electricityForm.get('timeUsedInHours')?.hasError('required')">
+            <input matInput placeholder="Time Used this month" formControlName="timeUsedInMonth">
+            <mat-error *ngIf="electricityForm.get('timeUsedInMonth')?.hasError('required')">
               Please enter the time the electricity was used in hours.
             </mat-error>
-            <mat-error *ngIf="electricityForm.get('timeUsedInHours')?.hasError('min')">
+            <mat-error *ngIf="electricityForm.get('timeUsedInMonth')?.hasError('min')">
               Time used must be greater than or equal to 0.
             </mat-error>
           </mat-form-field>
       </mat-card-content>
+
+      <mat-card-content>
+        <mat-form-field appearance="outline">
+            <mat-label>Electricity Source</mat-label>
+                <mat-select formControlName="electricitySource">
+                    <mat-option *ngFor="let source of this.electricitySources" [value]="this.electricitySources">
+                        {{ electricitySources }}
+                    </mat-option>
+                </mat-select>
+        </mat-form-field>
+    </mat-card-content>
     
       <button mat-raised-button color="primary" type="submit">Submit</button>
 

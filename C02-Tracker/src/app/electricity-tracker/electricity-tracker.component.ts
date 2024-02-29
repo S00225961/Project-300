@@ -11,13 +11,16 @@ export class ElectricityTrackerComponent implements OnInit {
 
   co2Produced: number | null = null;
 
-  co2ConversionFactor = 0.5;
+  co2ConversionFactor: number | null = null;
 
   electricitySources = [
     { value: 'coal', label: 'Coal' },
     { value: 'naturalGas', label: 'Natural Gas' },
-    { value: 'renewable', label: 'Renewable Energy' },
-    { value: 'other', label: 'Other' }
+    { value: 'oil', label: 'Oil' },
+    { value: 'solar', label: 'Solar'},
+    { value: 'nuclear', label: 'Nuclear'},
+    { value: 'hydro', label: 'Hydro'},
+    { value: 'wind', label: 'Wind'}
   ];
 
   constructor(private fb: FormBuilder) {}
@@ -29,16 +32,45 @@ export class ElectricityTrackerComponent implements OnInit {
   private initForm(): void {
     this.electricityForm = this.fb.group({
       usageInKwh: ['', [Validators.required, Validators.min(0)]],
-      timeUsedInHours: ['', [Validators.required, Validators.min(0)]],
+      timeUsedInMonths: ['', [Validators.required, Validators.min(0)]],
+      electricitySource: ['', [Validators.required]]
     });
   }
 
   calculateCO2(): number {
     if (this.electricityForm.valid) {
       const formData = this.electricityForm.value;
-      const { usageInKwh, timeUsedInHours } = formData;
+      const { usageInKwh, timeUsedInMonths, electricitySource } = formData;
 
-      this.co2Produced = usageInKwh * timeUsedInHours * this.co2ConversionFactor;
+      switch(electricitySource)
+      {
+        case 'coal':
+          this.co2ConversionFactor = 0.9;
+          break;
+        case 'naturalGas':
+          this.co2ConversionFactor = 0.5;
+          break;
+        case 'oil':
+          this.co2ConversionFactor = 0.65;
+          break;
+        case 'solar':
+          this.co2ConversionFactor = 0.058;
+          break;
+        case 'nuclear':
+          this.co2ConversionFactor = 0.005;
+          break;
+        case 'hydro':
+          this.co2ConversionFactor = 0.02;
+          break;
+        case 'wind':
+          this.co2ConversionFactor = 0.005;
+          break;
+        default:
+          this.co2ConversionFactor = 1;
+          break;
+      }
+
+      this.co2Produced = usageInKwh * timeUsedInMonths * this.co2ConversionFactor;
 
       return this.co2Produced;
     }
