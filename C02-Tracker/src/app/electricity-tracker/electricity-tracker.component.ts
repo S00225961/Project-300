@@ -32,7 +32,6 @@ export class ElectricityTrackerComponent implements OnInit {
   private initForm(): void {
     this.electricityForm = this.fb.group({
       usageInKwh: ['', [Validators.required, Validators.min(0)]],
-      timeUsedInMonths: ['', [Validators.required, Validators.min(0)]],
       electricitySource: ['', [Validators.required]]
     });
   }
@@ -40,7 +39,7 @@ export class ElectricityTrackerComponent implements OnInit {
   calculateCO2(): number {
     if (this.electricityForm.valid) {
       const formData = this.electricityForm.value;
-      const { usageInKwh, timeUsedInMonths, electricitySource } = formData;
+      const { usageInKwh, electricitySource } = formData;
 
       switch(electricitySource)
       {
@@ -70,7 +69,7 @@ export class ElectricityTrackerComponent implements OnInit {
           break;
       }
 
-      this.co2Produced = usageInKwh * timeUsedInMonths * this.co2ConversionFactor;
+      this.co2Produced = usageInKwh *  this.co2ConversionFactor;
 
       return this.co2Produced;
     }
