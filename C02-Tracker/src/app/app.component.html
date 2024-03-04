@@ -1,0 +1,14 @@
+<nav>
+    <ul *ngIf="!isAuthenticated">
+        <li><a routerLink="/home">Home</a></li>
+        <li><a routerLink="/electricity">Electricity Tracker</a></li>
+        <li><a routerLink="/commute">Commute Tracker</a></li>
+        <li><button (click)="signOut()">Sign Out</button></li>
+    </ul>
+    <ul *ngIf="isAuthenticated">
+        <li><a routerLink="/sign-in">Sign In</a></li> 
+        <li><a routerLink="/sign-up">Sign Up</a></li> 
+        <li><a routerLink="/statistics">Chart JS</a></li>
+    </ul>
+</nav>
+<router-outlet></router-outlet>

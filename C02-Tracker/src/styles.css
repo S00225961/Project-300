@@ -1,0 +1,36 @@
+
+@import '~bootstrap/dist/css/bootstrap.css';
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+body {
+    background-color: #D0E7D2;
+}
+#c02TrackerHeading {
+    text-align: center;
+    color: #618264;
+    margin: 20px;
+}
+#introParagraph {
+    text-align: center;
+    color: #618264;
+    padding: 20px;
+    font-size: 20px;
+}
+#searchBarHeading {
+    text-align: center;
+    font-size: 20px;
+    color: #618264;
+    margin: 20px;
+}
+.productListStyle {
+    margin: 100px;
+}
+mat-form-field {
+    width: 100%;
+}
+.signInAndOutBox {
+    margin-top: 100px;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

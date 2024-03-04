@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>Verify Your Email</h2>
+<mat-dialog-content class="mat-typography">
+  <p>Please enter the verification code sent to your email.</p>
+  <mat-form-field appearance="fill">
+    <mat-label>Verification Code</mat-label>
+    <input matInput [(ngModel)]="verificationCode" required>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancelClick()">Cancel</button>
+  <button mat-button color="primary" (click)="verifyCode()">Verify</button>
+</mat-dialog-actions>
