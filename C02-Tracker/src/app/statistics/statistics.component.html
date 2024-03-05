@@ -1,7 +1,28 @@
-<p>statistics works!</p>
-<div>
-    <canvas id="canvas">{{barChart}}</canvas>
+<h1 class="c02TrackerHeading">Username, Here is Your C02 Statistics</h1>
+<div class="chartListDiv">
+    <ul class="chartList">
+        <li>Below we display: </li>
+        <li>Pie chart to show estimated C02 production for each sector</li>
+        <li>Bar chart to show C02 produced weekly</li>
+        <li>Line chart to show general trend in C02 production</li>
+    </ul>
 </div>
-<div style="width: 400px; height: 400px;">
-    <canvas id="pieChart" width="400" height="400"></canvas>
+
+
+<div class="card chartCard">
+    <div class="card-header">
+      <h2 class="text-center">C02 Statistics Charts</h2>
+    </div>
+    <div class="card-body">
+      <div class="charts">
+          <canvas id="pieChart"></canvas>
+      </div>
+      <div class="charts">
+          <canvas id="barChart"></canvas>
+      </div>
+      <div class="charts">
+          <canvas id="lineChart"></canvas>
+      </div>
+    </div>
 </div>
+  

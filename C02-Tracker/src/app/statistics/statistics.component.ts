@@ -7,62 +7,75 @@ import { Chart } from 'chart.js/auto';
   styleUrls: ['./statistics.component.css']
 })
 export class StatisticsComponent {
-  barChart: any = [];
-  pieChart: any = [];
-
   ngOnInit() {
-    this.barChart = new Chart('canvas', {
+    //line chart
+    const lineChart = document.getElementById('lineChart') as HTMLCanvasElement;
+    new Chart(lineChart, {
+      type: 'line',
+      data: {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        datasets: [{
+          label: 'Line Chart Showing General Trend in C02 Production',
+          data: [65, 59, 80, 81, 56, 55, 40],
+          borderColor: '#A4CE95',
+          backgroundColor: '#344955',
+          borderWidth: 1,
+          fill: false
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false
+      }
+    });
+    //bar chart
+    const barChart = document.getElementById('barChart') as HTMLCanvasElement;
+    new Chart(barChart, {
       type: 'bar',
       data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
         datasets: [
           {
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            label: 'Bar Chart Showing C02 Produced in a Week',
+            data: [12, 19, 3, 5, 2, 3, 6],
+            backgroundColor: '#A4CE95',
             borderWidth: 1,
           },
         ],
+        
       },
       options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-          },
-        },
+        responsive: true,
+        maintainAspectRatio: false
       },
     });
      //pie chart
-  this.pieChart = new Chart('pieChart', {
-    type: 'pie',
-    data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: 'Dataset',
-        data: [12, 19, 3, 5, 2, 3],
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
-        ],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      responsive: false,
-      maintainAspectRatio: false
-    }
-  });
-  }
+     const pieChart = document.getElementById('pieChart') as HTMLCanvasElement;
+        new Chart(pieChart, {
+          type: 'pie',
+          data: {
+            labels: ['Food', 'Transport', 'Electricity'],
+            datasets: [{
+              label: 'Dataset',
+              data: [12, 19, 3],
+              backgroundColor: [
+                '#A5DD9B',
+                '#F6F193',
+                '#F2C18D'
+              ],
+              borderColor: [
+                '#A4CE95',
+                '#A4CE95',
+                '#A4CE95'
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false
+          }
+        });
+        }
 }
 

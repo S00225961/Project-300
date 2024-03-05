@@ -62,7 +62,7 @@ export class SignUpComponent {
         .then(session => {
           console.log('Sign in successful, session:', session);
           this.tempUserData = null;
-          this.router.navigate(['/dashboard']); // Navigate to the dashboard
+          this.router.navigate(['/home']); 
         })
         .catch(err => {
           console.error('Sign in error:', err);

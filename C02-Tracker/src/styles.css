@@ -5,12 +5,12 @@
 body {
     background-color: #D0E7D2;
 }
-#c02TrackerHeading {
+.c02TrackerHeading {
     text-align: center;
     color: #618264;
     margin: 20px;
 }
-#introParagraph {
+.introParagraph {
     text-align: center;
     color: #618264;
     padding: 20px;
@@ -41,4 +41,40 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .electricityFromBtn {
     width: 50%;
     padding-left: 100px;
+}
+/*Statistics Component*/
+.charts {
+    display: flex;
+    justify-content: center;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 20px;
+    height: 400px;
+}
+.chartCard {
+    display: flex;
+    justify-content: center;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+.chartList {
+    text-align: left;
+    color: #618264;
+    padding: 20px;
+    font-size: 20px;
+}
+.chartListDiv {
+    display: flex;
+    justify-content: center;
+}
+/**/
+.footer {
+    width: 100%;
+    background-color: #333;
+    padding: 10px;
+    text-align: center;
+    margin-top: 230px;
+}
+.footerText {
+    color: white;
 }

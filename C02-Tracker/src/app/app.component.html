@@ -5,10 +5,13 @@
         <li><a routerLink="/commute">Commute Tracker</a></li>
         <li><button (click)="signOut()">Sign Out</button></li>
     </ul>
-    <ul *ngIf="isAuthenticated">
+    <ul *ngIf="!isAuthenticated">
         <li><a routerLink="/sign-in">Sign In</a></li> 
         <li><a routerLink="/sign-up">Sign Up</a></li> 
         <li><a routerLink="/statistics">Chart JS</a></li>
     </ul>
 </nav>
 <router-outlet></router-outlet>
+<footer class="footer">
+    <p class="footerText">This is a sample footer. Copyright &copy; 2024 My Company.</p>
+</footer>
