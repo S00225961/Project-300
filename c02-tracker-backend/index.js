@@ -4,18 +4,23 @@ const db = require('./database');
 const userRoutes = require('./routes/userRoutes');
 const commuteRoutes = require('./routes/commuteRoutes');
 const electricityRoutes = require('./routes/electricityRoutes');
-const userController = require('../controllers/userController');
-
 
 const app = express();
 app.use(cors());
-app.use(express.json()); 
-app.use(express.urlencoded({ extended: true })); 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Database connection check
-db.authenticate()
-    .then(() => console.log('Database connected...'))
-    .catch(err => console.log('Error: ' + err));
+async function checkConnection() {
+    try {
+        await db.getConnection();
+        console.log('Database connection successful');
+    } catch (error) {
+        console.error('Database connection failed', error);
+    }
+}
+
+checkConnection();
 
 // Use Routes
 app.use('/api/users', userRoutes);
