@@ -29,11 +29,13 @@ export class CommuteTrackerComponent implements OnInit {
       additionalNotes: ['']
     });
   }
-
+  isNotNaN(value: any): boolean {
+    return !isNaN(value);
+  }
   onSubmit(): void {
     this.co2Produced = this.calculateCO2();
 
-    if (this.co2Produced !== null) {
+    if (this.co2Produced !== null && !isNaN(this.co2Produced)) {
       console.log(`CO2 produced for commute: ${this.co2Produced} kg`);
     } else {
       console.error('Invalid input. Please check your values.');

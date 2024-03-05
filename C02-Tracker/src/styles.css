@@ -34,3 +34,11 @@ mat-form-field {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/*Electricity component*/
+.electricityForm {
+    margin-top: 100px;
+}
+.electricityFromBtn {
+    width: 50%;
+    padding-left: 100px;
+}
