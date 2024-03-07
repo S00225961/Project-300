@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { VerificationPopupComponent } from '../verification-popup/verification-popup.component';
-import { Router } from '@angular/router'; // Import Router
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -16,13 +16,13 @@ export class SignUpComponent {
   givenName: string = '';
   familyName: string = '';
 
-  // Add properties to manage the user state
+
   private tempUserData: any = null;
 
   constructor(
     private authService: AuthService,
     private dialog: MatDialog,
-    private router: Router // Inject the Router
+    private router: Router 
   ) {}
 
   // Method to sign up a new user

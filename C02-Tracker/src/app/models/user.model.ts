@@ -4,5 +4,4 @@ export class User {
     password?: string; // Can be undefined, include if this is used for creating/updating users
     firstName?: string; // Can be undefined
     lastName?: string;  // Can be undefined
-    // Add any other relevant fields
 }

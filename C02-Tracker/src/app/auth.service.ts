@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable} from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http'; 
+import { UserService } from './user.service';
 import {
   CognitoUserPool,
   AuthenticationDetails,
   CognitoUser,
   CognitoUserAttribute,
-  CognitoUserSession, 
+  CognitoUserSession,
 } from 'amazon-cognito-identity-js';
 
 const poolData = {
@@ -21,40 +23,34 @@ const userPool = new CognitoUserPool(poolData);
 export class AuthService {
   public isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
 
-  constructor() {
+  constructor(private http: HttpClient, private userService: UserService) {
     const sessionData = localStorage.getItem('userSession');
     this.isAuthenticatedSubject.next(!!sessionData);
   }
 
-  // Method to sign up a new user with attributes
   signUp(username: string, password: string, email: string, givenName: string, familyName: string): Promise<any> {
-    const attributeList: CognitoUserAttribute[] = [];
-    
-    const emailAttribute = new CognitoUserAttribute({
-      Name: 'email',
-      Value: email,
-    });
-    const givenNameAttribute = new CognitoUserAttribute({
-      Name: 'given_name',
-      Value: givenName,
-    });
-    const familyNameAttribute = new CognitoUserAttribute({
-      Name: 'family_name',
-      Value: familyName,
-    });
-    
-    attributeList.push(emailAttribute, givenNameAttribute, familyNameAttribute);
-  
+    const attributeList: CognitoUserAttribute[] = [
+        new CognitoUserAttribute({ Name: 'email', Value: email }),
+        new CognitoUserAttribute({ Name: 'given_name', Value: givenName }),
+        new CognitoUserAttribute({ Name: 'family_name', Value: familyName }),
+    ];
+
     return new Promise((resolve, reject) => {
-      userPool.signUp(username, password, attributeList, [], (err, result) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(result); // User registration was successful
-        }
-      });
+        userPool.signUp(username, password, attributeList, [], (err, result) => { 
+            if (err) {
+                reject(err);
+            } else {
+                // After successful Cognito sign up, post the user data to your backend
+                this.http.post('http://localhost:3000/api/users', { username, email, password, givenName, familyName }).subscribe({
+                    next: (backendResult) => resolve({ cognitoResult: result, backendResult }),
+                    error: (backendError) => reject(backendError)
+                });
+            }
+        });
     });
-  }
+}
+
+
   
   // Method to verify a user's email with a given code
   verifyUserEmail(username: string, code: string): Promise<any> {

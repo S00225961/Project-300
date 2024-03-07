@@ -17,8 +17,6 @@ export class AppComponent implements OnInit {
   searchResults: any;
 
   handleSearch(searchTerm: string) {
-    // Add logic to handle the search term in the parent component
-    //calling api and sending json data to the display-products component
     this.apiService.searchItems(searchTerm)
     .pipe(
       catchError((err) => {
