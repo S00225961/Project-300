@@ -1,7 +1,7 @@
 const mysql = require('mysql2/promise');
 
 exports.handler = async (event) => {
-    const { id } = event.pathParameters;
+    const { id } = event.pathParameters; 
     const connection = await mysql.createConnection({
         host: 'co2-tracker-db.cedrm6pn8lni.eu-west-1.rds.amazonaws.com',
         user: 'admin',
@@ -10,7 +10,7 @@ exports.handler = async (event) => {
     });
 
     try {
-        const query = 'DELETE FROM commutes WHERE id = ?';
+        const query = 'DELETE FROM CommuteRecords WHERE commuteID = ?'; 
         await connection.execute(query, [id]);
         await connection.end();
 

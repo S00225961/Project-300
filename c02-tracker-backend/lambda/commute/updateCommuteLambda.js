@@ -11,7 +11,7 @@ exports.handler = async (event) => {
     });
 
     try {
-        const query = 'UPDATE commutes SET userID = ?, distance = ?, modeOfTransport = ?, frequency = ?, timeTaken = ?, co2Emissions = ? WHERE id = ?';
+        const query = 'UPDATE CommuteRecords SET userID = ?, distance = ?, modeOfTransport = ?, frequency = ?, timeTaken = ?, co2Emissions = ? WHERE commuteID = ?'; 
         const [result] = await connection.execute(query, [userID, distance, modeOfTransport, frequency, timeTaken, co2Emissions, id]);
         await connection.end();
 

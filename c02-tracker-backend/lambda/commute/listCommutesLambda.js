@@ -12,7 +12,7 @@ exports.handler = async (event) => {
 
     try {
         // Perform SQL query to fetch all commute records
-        const [rows] = await connection.query('SELECT * FROM commutes');
+        const [rows] = await connection.query('SELECT * FROM CommuteRecords');
         await connection.end(); // Close the database connection
 
         // Return the fetched commute records in the response

@@ -1,7 +1,8 @@
+
 const mysql = require('mysql2/promise');
 
 exports.handler = async (event) => {
-    const { id } = event.pathParameters;
+    const { id } = event.pathParameters; 
     const connection = await mysql.createConnection({
         host: 'co2-tracker-db.cedrm6pn8lni.eu-west-1.rds.amazonaws.com',
         user: 'admin',
@@ -10,7 +11,7 @@ exports.handler = async (event) => {
     });
 
     try {
-        const query = 'SELECT * FROM commutes WHERE id = ?';
+        const query = 'SELECT * FROM CommuteRecords WHERE commuteID = ?';
         const [rows] = await connection.execute(query, [id]);
         await connection.end();
 
@@ -30,7 +31,7 @@ exports.handler = async (event) => {
     } catch (err) {
         return {
             statusCode: 500,
-            body: JSON.stringify({ message: 'Error fetching commute' }),
+            body: JSON.stringify({ message: 'Error fetching commute', error: err.message }),
             headers: { 'Content-Type': 'application/json' }
         };
     }

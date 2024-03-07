@@ -1,7 +1,7 @@
 const mysql = require('mysql2/promise');
 
 exports.handler = async (event) => {
-    const { id } = event.pathParameters;
+    const { id } = event.pathParameters;  
     const { userID, usageInKwh, source, co2Emissions } = JSON.parse(event.body);
     const connection = await mysql.createConnection({
         host: 'co2-tracker-db.cedrm6pn8lni.eu-west-1.rds.amazonaws.com',
@@ -11,7 +11,7 @@ exports.handler = async (event) => {
     });
 
     try {
-        const query = 'UPDATE electricity_usage SET userID = ?, usageInKwh = ?, source = ?, co2Emissions = ? WHERE id = ?';
+        const query = 'UPDATE ElectricityRecords SET userID = ?, usageInKwh = ?, source = ?, co2Emissions = ? WHERE recordID = ?';
         await connection.execute(query, [userID, usageInKwh, source, co2Emissions, id]);
         await connection.end();
 

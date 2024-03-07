@@ -10,7 +10,7 @@ exports.handler = async (event) => {
     });
 
     try {
-        const query = 'SELECT * FROM electricity_usage WHERE id = ?';
+        const query = 'SELECT * FROM ElectricityRecords WHERE recordID = ?';
         const [rows] = await connection.execute(query, [id]);
         await connection.end();
 

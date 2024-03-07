@@ -10,7 +10,7 @@ exports.handler = async (event) => {
     });
 
     try {
-        const query = 'DELETE FROM electricity_usage WHERE id = ?';
+        const query = 'DELETE FROM ElectricityRecords WHERE recordID = ?';
         await connection.execute(query, [id]);
         await connection.end();
 

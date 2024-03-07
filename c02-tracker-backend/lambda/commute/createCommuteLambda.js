@@ -10,7 +10,7 @@ exports.handler = async (event) => {
     });
 
     try {
-        const query = 'INSERT INTO commutes (userID, distance, modeOfTransport, frequency, timeTaken, co2Emissions) VALUES (?, ?, ?, ?, ?, ?)';
+        const query = 'INSERT INTO CommuteRecords (userID, distance, modeOfTransport, frequency, timeTaken, co2Emissions) VALUES (?, ?, ?, ?, ?, ?)';
         const [result] = await connection.execute(query, [userID, distance, modeOfTransport, frequency, timeTaken, co2Emissions]);
         await connection.end();
 

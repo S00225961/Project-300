@@ -12,7 +12,7 @@ exports.handler = async (event) => {
 
     try {
         // Update user information in the database
-        const query = 'UPDATE users SET username = ?, email = ?, password = ?, givenName = ?, familyName = ? WHERE id = ?';
+        const query = 'UPDATE UserProfiles SET username = ?, email = ?, passwordHash = ?, firstName = ?, lastName = ? WHERE userID = ?';
         await connection.execute(query, [username, email, password, givenName, familyName, id]);
         await connection.end();
 

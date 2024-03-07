@@ -9,7 +9,7 @@ exports.handler = async (event) => {
     });
 
     try {
-        const [rows] = await connection.query('SELECT * FROM electricity_usage');
+        const [rows] = await connection.query('SELECT * FROM ElectricityRecords');
         await connection.end();
 
         return {
