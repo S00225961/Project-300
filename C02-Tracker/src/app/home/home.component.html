@@ -1,8 +1,8 @@
-<h1 class="c02TrackerHeading">CO2 Tracker</h1>
-<p class="introParagraph">Welcome to the CO2 Tracker Web Application!<br>
+<h1 class="c02TrackerHeading">Home</h1>
+<p class="introParagraph">Welcome to the Green Foot CO2 Tracker Web Application!<br>
     Using our CO2 Tracker, you'll be able to calculate the CO2 produced by food products, transportation, and electricity.<br>
     Use the application features below to calculate your CO2 today!</p>
 
-<h2 id="searchBarHeading">Enter Product Name Below</h2>
+<h2 id="searchBarHeading">Enter Food Product Name Below</h2>
 <app-search-bar (search)="handleSearch($event)"></app-search-bar>
 <app-display-products [jsonData]="searchResults"></app-display-products>

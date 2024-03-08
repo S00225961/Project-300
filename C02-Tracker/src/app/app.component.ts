@@ -4,6 +4,7 @@ import { catchError, finalize } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -12,7 +13,12 @@ import { Observable } from 'rxjs';
 export class AppComponent implements OnInit {
   isAuthenticated: boolean = true;
   constructor(private apiService: ApiServiceService, private authService: AuthService) {}
-
+  socialLinks = [
+    { name: 'Facebook', icon: 'facebook' },
+    { name: 'Twitter', icon: 'twitter' },
+    { name: 'Instagram', icon: 'instagram' },
+    // Add more social links as needed
+  ];
   title = 'C02-Tracker';
   searchResults: any;
 

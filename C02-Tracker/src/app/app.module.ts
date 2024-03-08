@@ -16,6 +16,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { VerificationPopupComponent } from './verification-popup/verification-popup.component'; 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +27,7 @@ import { VerificationPopupComponent } from './verification-popup/verification-po
     HomeComponent,
     SignInComponent, 
     SignUpComponent,
-    VerificationPopupComponent 
+    VerificationPopupComponent
   ],
   imports: [
     BrowserModule,

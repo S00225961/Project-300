@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js/auto';
+import { ApiForStatisticsService } from '../api-for-statistics.service';
+import { catchError, finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-statistics',
@@ -7,7 +9,29 @@ import { Chart } from 'chart.js/auto';
   styleUrls: ['./statistics.component.css']
 })
 export class StatisticsComponent {
-  ngOnInit() {
+  constructor(private statApiService: ApiForStatisticsService){}
+  jsonData: any = [];
+  text: string = "";
+  async ngOnInit() {
+    //loading stats
+
+    this.statApiService.listUsers()
+    .pipe(
+      catchError((err) => {
+        console.error('Error fetching data:', err);
+        return [];
+      }),
+      finalize(() => {
+        console.log('Request completed.');
+      })
+    )
+    .subscribe(
+      (result) => {
+        this.jsonData = result;
+        const jsonString = JSON.stringify(this.jsonData);
+        this.text = jsonString;
+      }
+    );
     //line chart
     const lineChart = document.getElementById('lineChart') as HTMLCanvasElement;
     new Chart(lineChart, {

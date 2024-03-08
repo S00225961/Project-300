@@ -1,6 +1,8 @@
 
 @import '~bootstrap/dist/css/bootstrap.css';
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import '~@fortawesome/fontawesome-free/css/all.css';
+
 
 body {
     background-color: #D0E7D2;
@@ -9,6 +11,33 @@ body {
     text-align: center;
     color: #618264;
     margin: 20px;
+}
+.customNavbar {
+    background-color: #B99470;
+    border-radius: 20px;
+    padding: 20px;
+}
+.navbar-nav .nav-link:link {
+    color: #fff; 
+}
+
+.navbar-nav .nav-link:visited {
+    color: #fff; 
+}
+
+.navbar-nav .nav-link:hover {
+    color: #618264;
+} 
+.navHeading {
+    color: #fff;
+    text-decoration: none;
+    font-size: 25px;
+}
+.image-border {
+    border: 20px solid;
+    border-image: url('assets/leaf-border2.png');
+    border-image-slice: 40;
+    border-image-repeat: round;
 }
 .introParagraph {
     text-align: center;
@@ -21,6 +50,20 @@ body {
     font-size: 20px;
     color: #618264;
     margin: 20px;
+}
+/*products page*/
+.loadingProductsMessage {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+.loadingProductsText{
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    width: fit-content;
+    border-radius: 50px;
+    color: #618264;
 }
 .productListStyle {
     margin: 100px;
@@ -67,14 +110,43 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     display: flex;
     justify-content: center;
 }
-/**/
+/*Footer*/
 .footer {
     width: 100%;
-    background-color: #333;
+    background-color: #B99470;
     padding: 10px;
     text-align: center;
-    margin-top: 230px;
+    border-radius: 25px;
+}
+.footer-image-border {
+    margin-top: 230px; 
+    border: 20px solid;
+    border-image: url('assets/leaf-border2.png');
+    border-image-slice: 40;
+    border-image-repeat: round;
 }
 .footerText {
     color: white;
 }
+.social-links {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    border-radius: 50%;
+    background-color: #B99470;
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .social-link i {
+    font-size: 20px;
+  }
+  
