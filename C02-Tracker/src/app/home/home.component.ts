@@ -9,7 +9,6 @@ import { catchError, finalize } from 'rxjs/operators';
 })
 export class HomeComponent implements OnInit {
   searchResults: any;
-
   constructor(private apiService: ApiServiceService) {}
 
   handleSearch(searchTerm: string) {

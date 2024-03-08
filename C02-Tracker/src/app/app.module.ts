@@ -15,6 +15,7 @@ import { MaterialModule } from './material.module';
 import { SignInComponent } from './sign-in/sign-in.component'; 
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { VerificationPopupComponent } from './verification-popup/verification-popup.component'; 
+import { StatisticsComponent } from './statistics/statistics.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { VerificationPopupComponent } from './verification-popup/verification-po
     HomeComponent,
     SignInComponent, 
     SignUpComponent,
-    VerificationPopupComponent
+    VerificationPopupComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule,

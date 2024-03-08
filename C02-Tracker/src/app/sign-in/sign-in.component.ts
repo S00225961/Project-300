@@ -12,8 +12,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 export class SignInComponent {
   form: FormGroup = new FormGroup({});;
-  // username: string = '';
-  // password: string = '';
+
   private fb: FormBuilder;
 
   constructor(private authService: AuthService, private router: Router, fb: FormBuilder) {
@@ -21,7 +20,7 @@ export class SignInComponent {
   }
   ngOnInit() {
     this.form = this.fb.group({
-      username: ['', [Validators.required]],
+      username: ['', [Validators.required, Validators.pattern(/^[^@\s]+$/)]], // Pattern to disallow email format
       password: ['', [Validators.required]]
     });
   }

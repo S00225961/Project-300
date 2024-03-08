@@ -43,6 +43,7 @@ export class AppComponent implements OnInit {
     );
 
   }
+  
 
   ngOnInit(): void {
     this.authService.isAuthenticated().subscribe(isAuthenticated => {

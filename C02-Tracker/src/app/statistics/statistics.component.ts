@@ -11,27 +11,30 @@ import { catchError, finalize } from 'rxjs/operators';
 export class StatisticsComponent {
   constructor(private statApiService: ApiForStatisticsService){}
   jsonData: any = [];
-  text: string = "";
+  username: string = "";
   async ngOnInit() {
     //loading stats
-
-    this.statApiService.listUsers()
-    .pipe(
-      catchError((err) => {
-        console.error('Error fetching data:', err);
-        return [];
-      }),
-      finalize(() => {
-        console.log('Request completed.');
-      })
-    )
-    .subscribe(
-      (result) => {
-        this.jsonData = result;
-        const jsonString = JSON.stringify(this.jsonData);
-        this.text = jsonString;
-      }
-    );
+    const sessionData = localStorage.getItem('userSession');
+    if(sessionData){
+      const jsonData = JSON.parse(sessionData);
+      this.username = jsonData.username;
+    }
+    // this.statApiService.listUsers()
+    // .pipe(
+    //   catchError((err) => {
+    //     console.error('Error fetching data:', err);
+    //     return [];
+    //   }),
+    //   finalize(() => {
+    //     console.log('Request completed.');
+    //   })
+    // )
+    // .subscribe(
+    //   (result) => {
+    //     this.jsonData = JSON.parse(result.body);
+    //     console.log(this.jsonData);
+    //   }
+    // );
     //line chart
     const lineChart = document.getElementById('lineChart') as HTMLCanvasElement;
     new Chart(lineChart, {

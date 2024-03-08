@@ -1,9 +1,9 @@
 <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-6">
-        <form class="d-flex">
+        <form [formGroup]="form" class="d-flex">
           <div class="flex-fill">
-            <input [(ngModel)]="searchQuery" [ngModelOptions]="{standalone: true}" class="form-control" type="search" placeholder="Search Food Products..." aria-label="Search">
+            <input class="form-control" type="search" placeholder="Search Food Products..." aria-label="Search" formControlName="searchInput">
           </div>
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="onSearch()">Search</button> 
         </form>
