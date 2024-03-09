@@ -1,8 +1,8 @@
 <div class="loadingProductsMessage">
-  <p *ngIf="!containsBootstrapCards() && jsonData != null" class="loadingProductsText">{{loadingMessageText}}</p>
+  <p *ngIf="!cardCount && jsonData != null" class="loadingProductsText">{{loadingMessageText}}</p>
 </div>
 <div class="container productListStyle">
-  <div class="row">
+  <div *ngIf="jsonData" class="row">
     <div *ngFor="let product of jsonData.products" class="col-lg-3 col-md-6 mb-4">
       <div class="card" style="width: 12rem;">
         <img class="card-img-top" alt="Card image cap" [src]="product.image_url">
@@ -17,6 +17,35 @@
             No C02 value for this product
           </li>
         </ul>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" (change)="toggleSelection($event, product.product_name, product.ecoscore_data.agribalyse.co2_total)">
+          <label class="form-check-label" for="flexCheckDefault">
+            Add product to selected products list
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="selectedProducts.length > 0">
+  <h1 class="c02TrackerHeading">Selected Products List</h1>
+  <p class="introParagraph">Below is a list of your selected products. When you are finished click the submit button to submit them</p>
+  <div class="container electricityForm">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="text-center">Submit Products</h2>
+          </div>
+          <div class="card-body">
+            <ul class="list-group">
+              <li *ngFor="let selectedProduct of selectedProducts" class="list-group-item">
+                {{ selectedProduct.name }}
+              </li>
+            </ul>
+            <button mat-raised-button color="primary" type="submit" (click)="onSubmit()">Submit</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
