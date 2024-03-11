@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, AfterContentChecked } from '@angular/core';
+import { Component, Input, OnInit, AfterContentChecked, QueryList, ViewChildren, ElementRef, ViewChild} from '@angular/core';
 import { Product } from '../models/product.model';
 
 @Component({
@@ -7,8 +7,10 @@ import { Product } from '../models/product.model';
   styleUrls: ['./display-products.component.css']
 })
 export class DisplayProductsComponent implements OnInit, AfterContentChecked {
-
+  @ViewChildren('productCards') productCardsElements: QueryList<ElementRef> = new QueryList<ElementRef>;
+  @ViewChild('barcodeProduct') barcodeProduct: any;
   @Input() jsonData: any = [];
+  @Input() showBarcodeProduct: any;
   loadingMessageText: string = "Loading Food Products";
   loadingInterval: any;
   dotCount = 0;
@@ -17,18 +19,17 @@ export class DisplayProductsComponent implements OnInit, AfterContentChecked {
   cardCount: boolean = false;
 
   containsBootstrapCards() {
-    // Check if any element in the document contains the Bootstrap card class
-    if(document.querySelectorAll('.card').length > 1){
+    //Check if any element in the document contains the Bootstrap card class
+    if(this.productCardsElements.length > 0){
       this.cardCount = true;
     }
     else {
       this.cardCount = false;
     }
+
   }
   ngAfterContentChecked(): void {
-    if(!this.cardCount){
-      this.containsBootstrapCards();
-    }
+    this.containsBootstrapCards();
   }
   ngOnInit() {
     this.loadingInterval = setInterval(() => {
@@ -66,7 +67,9 @@ export class DisplayProductsComponent implements OnInit, AfterContentChecked {
     }
   }
   onSubmit(){
+    this.containsBootstrapCards();
     this.selectedProducts.forEach(product => {
+      console.log('SUBMIT CLICKED!');
       console.log(product.name + " " + product.c02);
     });
 

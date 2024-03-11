@@ -3,7 +3,7 @@
   <p>Please enter the verification code sent to your email.</p>
   <mat-form-field appearance="fill">
     <mat-label>Verification Code</mat-label>
-    <input matInput [(ngModel)]="verificationCode" required>
+    <input matInput (input)="onInputChange($event)" required>
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions align="end">

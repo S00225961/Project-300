@@ -12,4 +12,13 @@ export class ApiForStatisticsService {
   listUsers(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/user`);
   }
+  //get userID by username
+  //get electricity records by user id
+  //get food products by user id
+  //get transport details by user id
+  
+  //post electricity records by user id
+  //post food products by user id
+  //post transport details by user id
+  
 }

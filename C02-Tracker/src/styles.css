@@ -12,6 +12,15 @@ body {
     color: #618264;
     margin: 20px;
 }
+/* barcode scanner styling */
+.barcodeScannerBox {
+    display: flex;
+    justify-content: center;
+    margin: 40px;
+}
+.scannerButton {
+    width: 20%;
+}
 .customNavbar {
     background-color: #B99470;
     border-radius: 20px;
@@ -51,7 +60,17 @@ body {
     color: #618264;
     margin: 20px;
 }
+.barcodeHeading {
+    text-align: center;
+    font-size: 20px;
+    color: #618264;
+    margin: 20px;
+}
 /*products page*/
+.barcodeProduct {
+    display: flex;
+    justify-content: center;
+}
 .loadingProductsMessage {
     display: flex;
     justify-content: center;

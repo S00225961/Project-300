@@ -10,7 +10,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 export class VerificationPopupComponent {
   verificationCode: string = '';
   
-  @Output() verificationComplete = new EventEmitter<boolean>();
+  //@Output() verificationComplete = new EventEmitter<boolean>();
 
   constructor(
     private authService: AuthService,
@@ -18,12 +18,19 @@ export class VerificationPopupComponent {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
+  onInputChange(event: any): void {
+    const value = event.target.value;
+    if (value !== null) {
+      this.verificationCode = value;
+      console.log('User input:', this.verificationCode);
+    }
+  }
   // Method to verify the code entered by the user
   verifyCode() {
     this.authService.verifyUserEmail(this.data.username, this.verificationCode).then(() => {
-      this.verificationComplete.emit(true);
+      //this.verificationComplete.emit(true);
       console.log('Verification successful');
-      this.dialogRef.close(); // Close the dialog when the verification is successful
+      this.dialogRef.close(true); // Close the dialog when the verification is successful
     }).catch((error: any) => {
       console.error('Verification failed', error);
     });

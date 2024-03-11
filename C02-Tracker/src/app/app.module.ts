@@ -16,6 +16,8 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { VerificationPopupComponent } from './verification-popup/verification-popup.component'; 
 import { StatisticsComponent } from './statistics/statistics.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+
 
 
 @NgModule({
@@ -38,9 +40,11 @@ import { StatisticsComponent } from './statistics/statistics.component';
     HttpClientModule,
     BrowserAnimationsModule,
     MaterialModule,
-    RouterModule
+    RouterModule,
+    ZXingScannerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+}

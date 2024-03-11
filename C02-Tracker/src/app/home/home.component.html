@@ -3,6 +3,32 @@
     Using our CO2 Tracker, you'll be able to calculate the CO2 produced by food products, transportation, and electricity.<br>
     Use the application features below to calculate your CO2 today!</p>
 
-<h2 id="searchBarHeading">Enter Food Product Name Below</h2>
+<div class="container">
+    <div class="row">
+      <div class="col-lg">
+        <h2 id="searchBarHeading">Enter Food Product Name Below</h2>
 <app-search-bar (search)="handleSearch($event)"></app-search-bar>
-<app-display-products [jsonData]="searchResults"></app-display-products>
+      </div>
+      <div class="col-lg">
+        <div class="container">
+            <h2 class="barcodeHeading">Or Scan a Product's Barcode by clicking the button below</h2>
+            <div class="row justify-content-center">
+                <button (click)="startScanning()" class="btn btn-success scannerButton">Scan Barcode</button>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="barcodeScannerBox">
+    <zxing-scanner
+    *ngIf="scanning"
+    [formats]="allowedFormats"
+    (scanSuccess)="onScanSuccess($event)"
+    (scanError)="onScanError($event)">
+  </zxing-scanner>
+</div>
+<app-display-products [jsonData]="searchResults" [showBarcodeProduct]="showBarcodeProduct"></app-display-products>
+
+
+
+

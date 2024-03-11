@@ -7,13 +7,11 @@ import { User } from './models/user.model'; // Assume you have a User model
   providedIn: 'root'
 })
 export class UserService {
-  private baseUrl = 'http://localhost:3000/api'; // Adjust based on your API URL
+  private baseUrl = 'https://whcrxwkr7h.execute-api.eu-west-1.amazonaws.com/dev'; 
 
   constructor(private http: HttpClient) {}
 
   createUser(user: User): Observable<User> {
-    return this.http.post<User>(`${this.baseUrl}/users`, user);
+    return this.http.post<User>(`${this.baseUrl}/user`, user);
   }
-
-  // Add other methods as needed for your application
 }

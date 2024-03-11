@@ -13,8 +13,7 @@ import { FormGroup, FormBuilder, Validators, Form } from '@angular/forms';
 export class SignUpComponent implements OnInit {
   // Add properties to manage the user state
   private tempUserData: any = null;
-  form: FormGroup = new FormGroup({});;
-
+  form: FormGroup = new FormGroup({});
   private fb: FormBuilder;
   constructor(
     private authService: AuthService,
@@ -37,6 +36,7 @@ export class SignUpComponent implements OnInit {
   signUp() {
     const formData = this.form.value;
     const {username, password, email, givenName, familyName} = formData;
+
     this.authService.signUp(username, password, email, givenName, familyName)
       .then(data => {
         console.log('Sign up successful:', data);
