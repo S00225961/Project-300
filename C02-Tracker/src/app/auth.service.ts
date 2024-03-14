@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable} from 'rxjs';
+import { BehaviorSubject, Observable, catchError, finalize} from 'rxjs';
 import {
   CognitoUserPool,
   AuthenticationDetails,
@@ -77,9 +77,21 @@ export class AuthService {
   
   // Method to sign in a user
   async signIn(username: string, password: string): Promise<any> {
-    this.userID = await this.apiForStats.getUserIDByUsername(username);
-    console.log("User ID: " + JSON.stringify(this.userID.body));
-    alert(this.userID.body);
+    this.apiForStats.getUserIDByUsername(username)
+    .pipe(
+      catchError((err) => {
+        console.error('Error fetching data:', err);
+        return [];
+      }),
+      finalize(() => {
+        console.log('Request completed.');
+      })
+    )
+    .subscribe(
+      (result) => {
+        this.userID = result;
+      }
+    );
     const authenticationDetails = new AuthenticationDetails({
       Username: username,
       Password: password,
