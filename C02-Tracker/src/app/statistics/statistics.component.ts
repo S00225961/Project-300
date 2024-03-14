@@ -42,15 +42,21 @@ export class StatisticsComponent {
       data: {
         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
         datasets: [{
-          label: 'Line Chart Showing General Trend in C02 Production',
+          label: 'General Trend in C02 Production',
           data: [65, 59, 80, 81, 56, 55, 40],
           borderColor: '#A4CE95',
           backgroundColor: '#344955',
-          borderWidth: 1,
-          fill: false
+          borderWidth: 1
         }]
       },
       options: {
+        plugins: {
+          legend: {
+            labels: {
+              boxWidth: 20
+            }
+          }
+        },
         responsive: true,
         maintainAspectRatio: false
       }
@@ -63,7 +69,7 @@ export class StatisticsComponent {
         labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
         datasets: [
           {
-            label: 'Bar Chart Showing C02 Produced in a Week',
+            label: 'C02 Produced in a Week',
             data: [12, 19, 3, 5, 2, 3, 6],
             backgroundColor: '#A4CE95',
             borderWidth: 1,
@@ -72,6 +78,13 @@ export class StatisticsComponent {
         
       },
       options: {
+        plugins: {
+          legend: {
+            labels: {
+              boxWidth: 20
+            }
+          }
+        },
         responsive: true,
         maintainAspectRatio: false
       },
@@ -99,6 +112,13 @@ export class StatisticsComponent {
             }]
           },
           options: {
+            plugins: {
+              legend: {
+                labels: {
+                  boxWidth: 20
+                }
+              }
+            },
             responsive: true,
             maintainAspectRatio: false
           }

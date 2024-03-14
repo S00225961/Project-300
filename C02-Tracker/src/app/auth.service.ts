@@ -7,6 +7,7 @@ import {
   CognitoUserAttribute,
   CognitoUserSession, 
 } from 'amazon-cognito-identity-js';
+import { ApiForStatisticsService } from './api-for-statistics.service';
 
 const poolData = {
   UserPoolId: 'eu-west-1_RrXVPO1LU',
@@ -19,9 +20,10 @@ const userPool = new CognitoUserPool(poolData);
   providedIn: 'root',
 })
 export class AuthService {
+  userID: any;
   public isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
 
-  constructor() {
+  constructor(private apiForStats: ApiForStatisticsService) {
     const sessionData = localStorage.getItem('userSession');
     this.isAuthenticatedSubject.next(!!sessionData);
   }
@@ -44,7 +46,6 @@ export class AuthService {
     });
     
     attributeList.push(emailAttribute, givenNameAttribute, familyNameAttribute);
-  
     return new Promise((resolve, reject) => {
       userPool.signUp(username, password, attributeList, [], (err, result) => {
         if (err) {
@@ -75,7 +76,10 @@ export class AuthService {
   }
   
   // Method to sign in a user
-  signIn(username: string, password: string): Promise<any> {
+  async signIn(username: string, password: string): Promise<any> {
+    this.userID = await this.apiForStats.getUserIDByUsername(username);
+    console.log("User ID: " + JSON.stringify(this.userID.body));
+    alert(this.userID.body);
     const authenticationDetails = new AuthenticationDetails({
       Username: username,
       Password: password,

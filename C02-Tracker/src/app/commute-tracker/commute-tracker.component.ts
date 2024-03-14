@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ApiForStatisticsService } from '../api-for-statistics.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-commute-tracker',
@@ -14,7 +16,7 @@ export class CommuteTrackerComponent implements OnInit {
   transportModes = ['Car', 'Bus', 'Train', 'Cycling', 'Walking'];
   commuteFrequencies = ['Daily', 'Weekly', 'Monthly'];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private apiForStats: ApiForStatisticsService, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.initForm();
@@ -37,6 +39,15 @@ export class CommuteTrackerComponent implements OnInit {
 
     if (this.co2Produced !== null && !isNaN(this.co2Produced)) {
       console.log(`CO2 produced for commute: ${this.co2Produced} kg`);
+      const event = {
+        userID: this.authService.userID,
+        distance: this.commuteForm.value.distance,
+        modeOfTransport: this.commuteForm.value.modeOfTransport,
+        frequency: this.commuteForm.value.frequency,
+        timeTaken: this.commuteForm.value.timeTaken,
+        co2Emissions: this.commuteForm.value.co2Emissions
+      };
+      this.apiForStats.postTransportByUserID(this.authService.userID, event);
     } else {
       console.error('Invalid input. Please check your values.');
     }

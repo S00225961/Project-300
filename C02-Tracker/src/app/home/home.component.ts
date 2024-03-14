@@ -4,12 +4,15 @@ import { catchError, finalize } from 'rxjs/operators';
 import { BarcodeService } from '../barcode.service';
 import { ZXingScannerComponent } from '@zxing/ngx-scanner';
 import { BarcodeFormat } from '@zxing/library';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  isAuthenticated: boolean = false;
   searchResults: any;
   scanning: boolean = false;
   showBarcodeProduct: boolean = false;
@@ -17,7 +20,7 @@ export class HomeComponent implements OnInit {
     BarcodeFormat.DATA_MATRIX,
     BarcodeFormat.EAN_13,
     BarcodeFormat.QR_CODE,];
-  constructor(private apiService: ApiServiceService, private barcodeService: BarcodeService) {}
+  constructor(private apiService: ApiServiceService, private barcodeService: BarcodeService, private authService: AuthService, private router: Router) {}
 
   handleSearch(searchTerm: string) {
     this.apiService.searchItems(searchTerm)
@@ -37,8 +40,14 @@ export class HomeComponent implements OnInit {
       }
     );
   }
-  ngOnInit(): void {
-    
+  async ngOnInit() {
+    this.authService.isAuthenticated()
+    await this.authService.isAuthenticated().subscribe(isAuthenticated => {
+      this.isAuthenticated = isAuthenticated;
+    });
+    if(!this.isAuthenticated){
+      this.router.navigate(['/sign-up']);
+    }
   }
 
   startScanning(): void {

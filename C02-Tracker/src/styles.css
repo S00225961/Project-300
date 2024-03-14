@@ -105,19 +105,23 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     padding-left: 100px;
 }
 /*Statistics Component*/
+@media (max-width: 768px) {
+    .charts {
+        min-width: 100px; /* Adjust as needed */
+    }
+}
+
 .charts {
     display: flex;
     justify-content: center;
-    padding-left: 50px;
-    padding-right: 50px;
     padding-bottom: 20px;
     height: 400px;
 }
 .chartCard {
     display: flex;
     justify-content: center;
-    margin-left: 100px;
-    margin-right: 100px;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 .chartList {
     text-align: left;
