@@ -5,7 +5,7 @@ import {
   AuthenticationDetails,
   CognitoUser,
   CognitoUserAttribute,
-  CognitoUserSession, 
+  CognitoUserSession,
 } from 'amazon-cognito-identity-js';
 import { ApiForStatisticsService } from './api-for-statistics.service';
 
@@ -28,7 +28,6 @@ export class AuthService {
     this.isAuthenticatedSubject.next(!!sessionData);
   }
 
-  // Method to sign up a new user with attributes
   signUp(username: string, password: string, email: string, givenName: string, familyName: string): Promise<any> {
     const attributeList: CognitoUserAttribute[] = [];
     
@@ -47,15 +46,21 @@ export class AuthService {
     
     attributeList.push(emailAttribute, givenNameAttribute, familyNameAttribute);
     return new Promise((resolve, reject) => {
-      userPool.signUp(username, password, attributeList, [], (err, result) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(result); // User registration was successful
-        }
-      });
+        userPool.signUp(username, password, attributeList, [], (err, result) => { 
+            if (err) {
+                reject(err);
+            } else {
+                // After successful Cognito sign up, post the user data to your backend
+                this.http.post('http://localhost:3000/api/users', { username, email, password, givenName, familyName }).subscribe({
+                    next: (backendResult) => resolve({ cognitoResult: result, backendResult }),
+                    error: (backendError) => reject(backendError)
+                });
+            }
+        });
     });
-  }
+}
+
+
   
   // Method to verify a user's email with a given code
   verifyUserEmail(username: string, code: string): Promise<any> {

@@ -2,54 +2,63 @@ const db = require('../database');
 
 exports.listUsers = async (req, res) => {
     try {
-        const [users] = await db.execute('SELECT * FROM users');
+        const users = await db.query("SELECT * FROM users", { type: db.QueryTypes.SELECT });
         res.json(users);
-    } catch (error) {
-        res.json({ message: "Error fetching users" });
+    } catch (err) {
+        res.send({ message: "Error retrieving users" });
     }
 };
 
 exports.createUser = async (req, res) => {
-    const { username, email, password } = req.body;
+    const { username, email, password, givenName, familyName } = req.body; 
     try {
-        const [result] = await db.execute('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', [username, email, password]);
-        res.json({ message: "User created successfully", userId: result.insertId });
+        const result = await db.query('INSERT INTO UserProfiles (username, email, passwordHash, firstName, lastName) VALUES (?, ?, ?, ?, ?)', 
+            [username, email, password , givenName, familyName]);
+        res.json({ message: 'User created successfully', userId: result.insertId });
     } catch (error) {
-        res.json({ message: "Error creating user" });
+        res.send({ message: 'Error creating user' });
     }
 };
 
 exports.getUser = async (req, res) => {
-    const userId = req.params.id;
+    const { id } = req.params;
     try {
-        const [user] = await db.execute('SELECT * FROM users WHERE id = ?', [userId]);
-        if (user.length > 0) {
-            res.json(user[0]);
-        } else {
-            res.json({ message: "User not found" });
-        }
-    } catch (error) {
-        res.json({ message: "Error fetching user" });
+        const user = await db.query("SELECT * FROM users WHERE id = ?", { 
+            replacements: [id], 
+            type: db.QueryTypes.SELECT 
+        });
+        res.json(user);
+    } catch (err) {
+        res.send({ message: "Error retrieving user" });
     }
 };
 
 exports.updateUser = async (req, res) => {
-    const userId = req.params.id;
-    const { username, email, password } = req.body;
+    const { id } = req.params;
+    const { username, email, password } = req.body; 
     try {
-        await db.execute('UPDATE users SET username = ?, email = ?, password = ? WHERE id = ?', [username, email, password, userId]);
-        res.json({ message: "User updated successfully" });
-    } catch (error) {
-        res.json({ message: "Error updating user" });
+        await db.query(
+            "UPDATE users SET username = ?, email = ?, password = ? WHERE id = ?", 
+            {
+                replacements: [username, email, password, id],
+                type: db.QueryTypes.UPDATE
+            }
+        );
+        res.send({ message: "User updated successfully" });
+    } catch (err) {
+        res.send({ message: "Error updating user" });
     }
 };
 
 exports.deleteUser = async (req, res) => {
-    const userId = req.params.id;
+    const { id } = req.params;
     try {
-        await db.execute('DELETE FROM users WHERE id = ?', [userId]);
-        res.json({ message: "User deleted successfully" });
-    } catch (error) {
-        res.json({ message: "Error deleting user" });
+        await db.query("DELETE FROM users WHERE id = ?", { 
+            replacements: [id], 
+            type: db.QueryTypes.DELETE 
+        });
+        res.send({ message: "User deleted successfully" });
+    } catch (err) {
+        res.send({ message: "Error deleting user" });
     }
 };
