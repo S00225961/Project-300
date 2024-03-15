@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ApiForStatisticsService } from '../api-for-statistics.service';
+import { catchError, finalize } from 'rxjs';
+import { AuthService } from '../auth.service';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-electricity-tracker',
@@ -8,7 +12,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ElectricityTrackerComponent implements OnInit {
   electricityForm: FormGroup = new FormGroup({});
-
+  userID: any;
+  electricitySource: string = "";
   co2Produced: number | null = null;
 
   co2ConversionFactor: number | null = null;
@@ -23,10 +28,12 @@ export class ElectricityTrackerComponent implements OnInit {
     { value: 'wind', label: 'Wind'}
   ];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private apiForStats: ApiForStatisticsService, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.initForm();
+    this.userID = this.authService.userID;
+    console.log(this.userID);
   }
 
   private initForm(): void {
@@ -39,9 +46,9 @@ export class ElectricityTrackerComponent implements OnInit {
   calculateCO2(): number {
     if (this.electricityForm.valid) {
       const formData = this.electricityForm.value;
-      const { usageInKwh, electricitySource } = formData;
-
-      switch(electricitySource)
+      const { usageInKwh } = formData;
+      console.log("source: " + this.electricitySource);
+      switch(this.electricitySource)
       {
         case 'coal':
           this.co2ConversionFactor = 0.9;
@@ -76,12 +83,41 @@ export class ElectricityTrackerComponent implements OnInit {
 
     return -1;
   }
-
+  onSelectionChange(event: any) {
+    console.log(event); 
+    this.electricitySource = event;
+  }
   onSubmit(): void {
     this.co2Produced = this.calculateCO2();
 
     if (this.co2Produced !== -1) {
       console.log(`CO2 produced: ${this.co2Produced} kg`);
+      console.log("userID: " + this.userID);
+      console.log("source: " + this.electricitySource);
+      const event = {
+        userID: this.userID,
+        usageInKwh: this.electricityForm.value.usageInKwh,
+        source: this.electricitySource,
+        co2Emissions: this.co2Produced,
+      };
+      //post to db
+      const eventDataJson = JSON.stringify(event);
+      console.log(eventDataJson);
+      this.apiForStats.postElectricityRecordsByUserID(eventDataJson)
+      .pipe(
+        catchError((err) => {
+          console.error('Error fetching data:', err);
+          return [];
+        }),
+        finalize(() => {
+          console.log('Request completed.');
+        })
+      )
+      .subscribe(
+        (result) => {
+          console.log('Data sent successfully:', result);
+        }
+      );
     } else {
       console.error('Invalid input. Please check your values.');
     }

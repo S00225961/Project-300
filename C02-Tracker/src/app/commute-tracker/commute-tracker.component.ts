@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiForStatisticsService } from '../api-for-statistics.service';
 import { AuthService } from '../auth.service';
+import { Observable, catchError, finalize, pipe } from 'rxjs';
+import { HttpHeaders } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-commute-tracker',
@@ -10,6 +13,7 @@ import { AuthService } from '../auth.service';
 })
 export class CommuteTrackerComponent implements OnInit {
   commuteForm: FormGroup = new FormGroup({});
+  userID: any;
 
   co2Produced: number | null = null;
 
@@ -20,6 +24,8 @@ export class CommuteTrackerComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    this.userID = this.authService.userID;
+    console.log("userID: " + this.userID);
   }
 
   private initForm(): void {
@@ -34,20 +40,37 @@ export class CommuteTrackerComponent implements OnInit {
   isNotNaN(value: any): boolean {
     return !isNaN(value);
   }
-  onSubmit(): void {
+  onSubmit(): void{
     this.co2Produced = this.calculateCO2();
 
     if (this.co2Produced !== null && !isNaN(this.co2Produced)) {
-      console.log(`CO2 produced for commute: ${this.co2Produced} kg`);
+      //console.log(`CO2 produced for commute: ${this.co2Produced} kg`);
       const event = {
-        userID: this.authService.userID,
+        userID: this.userID,
         distance: this.commuteForm.value.distance,
         modeOfTransport: this.commuteForm.value.modeOfTransport,
         frequency: this.commuteForm.value.frequency,
         timeTaken: this.commuteForm.value.timeTaken,
-        co2Emissions: this.commuteForm.value.co2Emissions
+        co2Emissions: this.co2Produced
       };
-      this.apiForStats.postTransportByUserID(this.authService.userID, event);
+      //post to db
+      const eventDataJson = JSON.stringify(event);
+      console.log(eventDataJson);
+      this.apiForStats.postTransportByUserID(eventDataJson)
+      .pipe(
+        catchError((err) => {
+          console.error('Error fetching data:', err);
+          return [];
+        }),
+        finalize(() => {
+          console.log('Request completed.');
+        })
+      )
+      .subscribe(
+        (result) => {
+          console.log('Data sent successfully:', result);
+        }
+      );
     } else {
       console.error('Invalid input. Please check your values.');
     }

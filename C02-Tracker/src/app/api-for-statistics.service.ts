@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Observable, catchError, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +9,7 @@ export class ApiForStatisticsService {
   private apiUrl = 'https://whcrxwkr7h.execute-api.eu-west-1.amazonaws.com/dev';
 
   constructor(private http: HttpClient) { }
+  
   // listUsers(): Observable<any> {
   //   return this.http.get<any>(`${this.apiUrl}/user`);
   // }
@@ -29,16 +30,15 @@ export class ApiForStatisticsService {
     return this.http.get<any>(`${this.apiUrl}/commute/${userID}`);
   }
   //post electricity records by user id
-  postElectricityRecordsByUserID(userID: string, data: any){
-    this.http.post(`${this.apiUrl}/electricity/${userID}`, data);
+  postElectricityRecordsByUserID(data: any){
+    return this.http.post(`${this.apiUrl}/electricity/`, data);
   }
   //post food products by user id
-  postFoodProdutsByUserID(userID: string, data: any){
-    this.http.post(`${this.apiUrl}/product/${userID}`, data);
+  postFoodProdutsByUserID(data: any): Observable<any>{
+    return this.http.post(`${this.apiUrl}/product/`, data);
   }
-  //post transport details by user id
-  postTransportByUserID(userID: string, data: any){
-    this.http.post(`${this.apiUrl}/commute/${userID}`, data);
+  postTransportByUserID(data: any): Observable<any>{
+    return this.http.post(`${this.apiUrl}/commute/`, data);
   }
   
 }

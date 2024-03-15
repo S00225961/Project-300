@@ -1,5 +1,8 @@
 import { Component, Input, OnInit, AfterContentChecked, QueryList, ViewChildren, ElementRef, ViewChild} from '@angular/core';
 import { Product } from '../models/product.model';
+import { AuthService } from '../auth.service';
+import { ApiForStatisticsService } from '../api-for-statistics.service';
+import { catchError, finalize } from 'rxjs';
 
 @Component({
   selector: 'app-display-products',
@@ -17,6 +20,8 @@ export class DisplayProductsComponent implements OnInit, AfterContentChecked {
   dotLimit = 15;
   selectedProducts: Product[] = [];
   cardCount: boolean = false;
+  userID: any;
+  constructor(private authService: AuthService, private apiForStats: ApiForStatisticsService){}
 
   containsBootstrapCards() {
     //Check if any element in the document contains the Bootstrap card class
@@ -32,9 +37,12 @@ export class DisplayProductsComponent implements OnInit, AfterContentChecked {
     this.containsBootstrapCards();
   }
   ngOnInit() {
+    this.userID = this.authService.userID;
+    console.log("userID: " + this.userID);
     this.loadingInterval = setInterval(() => {
       this.loadingMessageDisplay();
     }, 750);
+    
   }
 
   ngOnDestroy() {
@@ -50,16 +58,17 @@ export class DisplayProductsComponent implements OnInit, AfterContentChecked {
       this.loadingMessageText += '.';
     }
   }
-  toggleSelection(event: any, productName: string, c02Value: string): void {
+  toggleSelection(event: any, productName: string, c02Value: string, imageURL: string): void {
     
     const isChecked = event.target.checked;
     const product = new Product();
     product.name = productName;
     product.c02 = c02Value;
+    product.imageURL = imageURL;
     if (isChecked) {
       this.selectedProducts.push(product)
     } else {
-      let productToRemove = this.selectedProducts.find(product => product.name = productName);
+      let productToRemove = this.selectedProducts.find(product => product.name == productName);
       if(productToRemove){
         const index = this.selectedProducts.indexOf(productToRemove);
         this.selectedProducts.splice(index, 1);
@@ -71,6 +80,31 @@ export class DisplayProductsComponent implements OnInit, AfterContentChecked {
     this.selectedProducts.forEach(product => {
       console.log('SUBMIT CLICKED!');
       console.log(product.name + " " + product.c02);
+      const event = {
+        userID: this.userID,
+        productName: product.name,
+        category: null,
+        co2EmissionsPerUnit: product.c02,
+        imageURL: product.imageURL
+      };
+      //post to db
+      const eventDataJson = JSON.stringify(event);
+      console.log(eventDataJson);
+      this.apiForStats.postFoodProdutsByUserID(eventDataJson)
+      .pipe(
+        catchError((err) => {
+          console.error('Error fetching data:', err);
+          return [];
+        }),
+        finalize(() => {
+          console.log('Request completed.');
+        })
+      )
+      .subscribe(
+        (result) => {
+          console.log('Data sent successfully:', result);
+        }
+      );
     });
 
   }

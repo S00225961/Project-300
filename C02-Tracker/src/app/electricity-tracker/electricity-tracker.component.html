@@ -20,7 +20,7 @@
     
             <mat-form-field appearance="outline">
               <mat-label>Electricity Source</mat-label>
-                  <mat-select formControlName="electricitySource">
+                  <mat-select formControlName="electricitySource" (selectionChange)="onSelectionChange($event.value)">
                       <mat-option *ngFor="let source of this.electricitySources" [value]="source.value">
                           {{ source.label }}
                       </mat-option>

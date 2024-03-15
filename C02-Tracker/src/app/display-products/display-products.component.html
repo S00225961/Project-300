@@ -18,7 +18,7 @@
           </li>
         </ul>
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" (change)="toggleSelection($event, product.product_name, product.ecoscore_data.agribalyse.co2_total)">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" (change)="toggleSelection($event, product.product_name, product.ecoscore_data.agribalyse.co2_total, product.image_url)">
           <label class="form-check-label" for="flexCheckDefault">
             Add product to selected products list
           </label>
@@ -42,7 +42,7 @@
       </li>
     </ul>
     <div class="form-check">
-      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" (change)="toggleSelection($event, jsonData.product.product_name, jsonData.product.ecoscore_data.agribalyse.co2_total)">
+      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" (change)="toggleSelection($event, jsonData.product.product_name, jsonData.product.ecoscore_data.agribalyse.co2_total, jsonData.product.image_url)">
       <label class="form-check-label" for="flexCheckDefault">
         Add product to selected products list
       </label>

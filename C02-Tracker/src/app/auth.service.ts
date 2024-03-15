@@ -51,10 +51,10 @@ export class AuthService {
                 reject(err);
             } else {
                 // After successful Cognito sign up, post the user data to your backend
-                this.http.post('http://localhost:3000/api/users', { username, email, password, givenName, familyName }).subscribe({
-                    next: (backendResult) => resolve({ cognitoResult: result, backendResult }),
-                    error: (backendError) => reject(backendError)
-                });
+                // this.http.post('http://localhost:3000/api/users', { username, email, password, givenName, familyName }).subscribe({
+                //     next: (backendResult) => resolve({ cognitoResult: result, backendResult }),
+                //     error: (backendError) => reject(backendError)
+                // });
             }
         });
     });
