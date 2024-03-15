@@ -101,10 +101,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .electricityForm {
     margin-top: 100px;
 }
-.electricityFromBtn {
-    width: 50%;
-    padding-left: 100px;
-}
 /*Statistics Component*/
 @media (max-width: 768px) {
     .charts {
