@@ -16,7 +16,7 @@ export class DisplayProductsComponent implements OnInit, AfterContentChecked {
   loadingMessageText: string = "Loading Food Products";
   loadingInterval: any;
   dotCount = 0;
-  dotLimit = 15;
+  dotLimit = 8;
   selectedProducts: Product[] = [];
   cardCount: boolean = false;
   userID: any;
@@ -55,6 +55,7 @@ export class DisplayProductsComponent implements OnInit, AfterContentChecked {
   }
 
   loadingMessageDisplay() {
+    console.log('loading message display method called');
     this.dotCount++;
     if (this.dotCount > this.dotLimit) {
       this.dotCount = 0;

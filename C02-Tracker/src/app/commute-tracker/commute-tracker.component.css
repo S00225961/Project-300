@@ -1,0 +1,27 @@
+button {
+    display: block;
+    margin: 0 auto;
+    width: 25%;
+    text-align: center;
+    cursor: pointer;
+}
+
+::placeholder {
+    font-weight: bold;
+}
+
+mat-label {
+    font-weight: bold;
+}
+
+h2 {
+    color: white;
+}
+
+form, .card-body, .card-header {
+    background-color: #B99470;
+}  
+
+.commuteFormBtn {
+    background-color: #D0E7D2;
+}

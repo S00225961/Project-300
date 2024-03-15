@@ -1,5 +1,5 @@
 <div class="loadingProductsMessage">
-  <p *ngIf="!cardCount && jsonData != null" class="loadingProductsText">{{loadingMessageText}}</p>
+  <p *ngIf="cardCount == null && jsonData != null" class="loadingProductsText">{{loadingMessageText}}</p>
 </div>
 <div class="container productListStyle">
   <div *ngIf="jsonData && showBarcodeProduct == false" class="row">

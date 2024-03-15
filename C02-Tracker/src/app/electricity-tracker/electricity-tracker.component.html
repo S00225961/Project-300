@@ -18,7 +18,7 @@
               </mat-error>
             </mat-form-field>
     
-            <mat-form-field appearance="outline">
+            <mat-form-field>
               <mat-label>Electricity Source</mat-label>
                   <mat-select formControlName="electricitySource" (selectionChange)="onSelectionChange($event.value)">
                       <mat-option *ngFor="let source of this.electricitySources" [value]="source.value">
@@ -26,8 +26,7 @@
                       </mat-option>
                   </mat-select>
             </mat-form-field>
-              <button mat-raised-button color="primary" type="submit" class="electricityFromBtn">Submit</button>
-        
+              <button mat-raised-button type="submit" class="electricityFormBtn">Submit</button>
                 <div *ngIf="co2Produced !== null && co2Produced >= 0">
                     <h3>CO2 produced: {{ co2Produced }} kg</h3>
                 </div>
