@@ -9,32 +9,75 @@ import { catchError, finalize } from 'rxjs/operators';
   styleUrls: ['./statistics.component.css']
 })
 export class StatisticsComponent {
-  constructor(private statApiService: ApiForStatisticsService){}
+  constructor(private apiForStats: ApiForStatisticsService){}
   jsonData: any = [];
+  electricityRecords: any = [];
   username: string = "";
+  userID: any; 
+  userData: any;
   async ngOnInit() {
+    const localStorageData = localStorage.getItem('getUserIDByUsername');
+    if(localStorageData){
+      this.userData = JSON.parse(localStorageData);
+      this.userID = this.userData.userID;
+      console.log(this.userID);
+    }
+    console.log("userID: " + this.userID);
     //loading stats
     const sessionData = localStorage.getItem('userSession');
     if(sessionData){
       const jsonData = JSON.parse(sessionData);
       this.username = jsonData.username;
     }
-    // this.statApiService.listUsers()
-    // .pipe(
-    //   catchError((err) => {
-    //     console.error('Error fetching data:', err);
-    //     return [];
-    //   }),
-    //   finalize(() => {
-    //     console.log('Request completed.');
-    //   })
-    // )
-    // .subscribe(
-    //   (result) => {
-    //     this.jsonData = JSON.parse(result.body);
-    //     console.log(this.jsonData);
-    //   }
-    // );
+    //get data from api
+    //electricity
+    this.apiForStats.getElectricityRecordsByUserID(this.userID)
+    .pipe(
+      catchError((err) => {
+        console.error('Error fetching data:', err);
+        return [];
+      }),
+      finalize(() => {
+        console.log('Request completed.');
+      })
+    )
+    .subscribe(
+      (result) => {
+        console.log(result);
+      }
+    );
+    //commute
+    this.apiForStats.getTransportByUserID(this.userID)
+    .pipe(
+      catchError((err) => {
+        console.error('Error fetching data:', err);
+        return [];
+      }),
+      finalize(() => {
+        console.log('Request completed.');
+      })
+    )
+    .subscribe(
+      (result) => {
+        console.log(result);
+      }
+    );
+    //products
+    this.apiForStats.getFoodProductsByUserID(this.userID)
+    .pipe(
+      catchError((err) => {
+        console.error('Error fetching data:', err);
+        return [];
+      }),
+      finalize(() => {
+        console.log('Request completed.');
+      })
+    )
+    .subscribe(
+      (result) => {
+        console.log(result);
+      }
+    );
     //line chart
     const lineChart = document.getElementById('lineChart') as HTMLCanvasElement;
     new Chart(lineChart, {

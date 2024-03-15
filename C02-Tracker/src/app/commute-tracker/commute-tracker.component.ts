@@ -14,7 +14,7 @@ import { HttpHeaders } from '@angular/common/http';
 export class CommuteTrackerComponent implements OnInit {
   commuteForm: FormGroup = new FormGroup({});
   userID: any;
-
+  userData: any;
   co2Produced: number | null = null;
 
   transportModes = ['Car', 'Bus', 'Train', 'Cycling', 'Walking'];
@@ -24,8 +24,12 @@ export class CommuteTrackerComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    this.userID = this.authService.userID;
-    console.log("userID: " + this.userID);
+    const localStorageData = localStorage.getItem('getUserIDByUsername');
+    if(localStorageData){
+      this.userData = JSON.parse(localStorageData);
+      this.userID = this.userData.userID;
+      console.log(this.userID);
+    }
   }
 
   private initForm(): void {

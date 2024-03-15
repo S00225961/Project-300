@@ -11,7 +11,7 @@
         </div>
         <ul class="list-group list-group-flush">
           <li class="list-group-item" *ngIf="product.ecoscore_data?.agribalyse?.co2_total != null">
-            1g of this product takes {{product.ecoscore_data.agribalyse.co2_total}}g of CO2 to produce
+            Total C02 produced to make this product: {{product.ecoscore_data.agribalyse.co2_total}}g
           </li>
           <li class="list-group-item" *ngIf="product.ecoscore_data?.agribalyse?.co2_total == null">
             No C02 value for this product
@@ -35,7 +35,7 @@
     </div>
     <ul class="list-group list-group-flush">
       <li class="list-group-item" *ngIf="jsonData.product.ecoscore_data?.agribalyse?.co2_total != null">
-        1g of this product takes {{jsonData.product.ecoscore_data.agribalyse.co2_total}}g of CO2 to produce
+        Total C02 produced to make this product: {{jsonData.product.ecoscore_data.agribalyse.co2_total}}g
       </li>
       <li class="list-group-item" *ngIf="jsonData.product.ecoscore_data?.agribalyse?.co2_total == null">
         No C02 value for this product

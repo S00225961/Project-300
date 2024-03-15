@@ -1,6 +1,5 @@
 import { Component, Input, OnInit, AfterContentChecked, QueryList, ViewChildren, ElementRef, ViewChild} from '@angular/core';
 import { Product } from '../models/product.model';
-import { AuthService } from '../auth.service';
 import { ApiForStatisticsService } from '../api-for-statistics.service';
 import { catchError, finalize } from 'rxjs';
 
@@ -21,7 +20,9 @@ export class DisplayProductsComponent implements OnInit, AfterContentChecked {
   selectedProducts: Product[] = [];
   cardCount: boolean = false;
   userID: any;
-  constructor(private authService: AuthService, private apiForStats: ApiForStatisticsService){}
+  userData: any;
+  co2perkg: any;
+  constructor(private apiForStats: ApiForStatisticsService){}
 
   containsBootstrapCards() {
     //Check if any element in the document contains the Bootstrap card class
@@ -37,8 +38,12 @@ export class DisplayProductsComponent implements OnInit, AfterContentChecked {
     this.containsBootstrapCards();
   }
   ngOnInit() {
-    this.userID = this.authService.userID;
-    console.log("userID: " + this.userID);
+    const localStorageData = localStorage.getItem('getUserIDByUsername');
+    if(localStorageData){
+      this.userData = JSON.parse(localStorageData);
+      this.userID = this.userData.userID;
+      console.log(this.userID);
+    }
     this.loadingInterval = setInterval(() => {
       this.loadingMessageDisplay();
     }, 750);
@@ -63,7 +68,7 @@ export class DisplayProductsComponent implements OnInit, AfterContentChecked {
     const isChecked = event.target.checked;
     const product = new Product();
     product.name = productName;
-    product.c02 = c02Value;
+    product.c02 = Number(c02Value);
     product.imageURL = imageURL;
     if (isChecked) {
       this.selectedProducts.push(product)
@@ -78,13 +83,15 @@ export class DisplayProductsComponent implements OnInit, AfterContentChecked {
   onSubmit(){
     this.containsBootstrapCards();
     this.selectedProducts.forEach(product => {
-      console.log('SUBMIT CLICKED!');
-      console.log(product.name + " " + product.c02);
+      if(product.c02){
+        this.co2perkg = product.c02 / 1000;
+      }
+      console.log(this.co2perkg);
       const event = {
         userID: this.userID,
         productName: product.name,
         category: null,
-        co2EmissionsPerUnit: product.c02,
+        co2EmissionsPerUnit: this.co2perkg,
         imageURL: product.imageURL
       };
       //post to db

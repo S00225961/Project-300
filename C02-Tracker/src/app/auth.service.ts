@@ -20,7 +20,6 @@ const userPool = new CognitoUserPool(poolData);
   providedIn: 'root',
 })
 export class AuthService {
-  userID: any;
   public isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
 
   constructor(private apiForStats: ApiForStatisticsService) {
@@ -94,7 +93,9 @@ export class AuthService {
     )
     .subscribe(
       (result) => {
-        this.userID = result;
+        localStorage.setItem('getUserIDByUsername', JSON.stringify({
+          userID: result,
+        }));
       }
     );
     const authenticationDetails = new AuthenticationDetails({
@@ -149,6 +150,7 @@ export class AuthService {
       if (cognitoUser) {
         cognitoUser.signOut();
         localStorage.removeItem('userSession');
+        localStorage.removeItem('getUserIDByUsername');
         resolve();
         this.setAuthenticated(false);
       } else {

@@ -13,6 +13,7 @@ import { MatSelectChange } from '@angular/material/select';
 export class ElectricityTrackerComponent implements OnInit {
   electricityForm: FormGroup = new FormGroup({});
   userID: any;
+  userData: any;
   electricitySource: string = "";
   co2Produced: number | null = null;
 
@@ -32,8 +33,12 @@ export class ElectricityTrackerComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    this.userID = this.authService.userID;
-    console.log(this.userID);
+    const localStorageData = localStorage.getItem('getUserIDByUsername');
+    if(localStorageData){
+      this.userData = JSON.parse(localStorageData);
+      this.userID = this.userData.userID;
+      console.log(this.userID);
+    }
   }
 
   private initForm(): void {
