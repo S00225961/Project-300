@@ -1,6 +1,8 @@
 .card {
     width: 12rem;
     height: 100%;
+    background-color: #B99470;
+    color: white;
   }
   
   .card-img-top {
@@ -11,5 +13,16 @@
   
   .card-body {
     min-height: 6rem;
+  }
+
+  ul, li {
+    background-color: #B99470;
+    color: white;
+  }
+
+  .form-check {
+    margin: 1rem;
+    margin-left: 2rem;
+    cursor: pointer;
   }
   

@@ -10,9 +10,6 @@ export class ApiForStatisticsService {
 
   constructor(private http: HttpClient) { }
   
-  // listUsers(): Observable<any> {
-  //   return this.http.get<any>(`${this.apiUrl}/user`);
-  // }
   //get userID by username
   getUserIDByUsername(username: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/user/${username}`);

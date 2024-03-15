@@ -55,7 +55,6 @@ export class DisplayProductsComponent implements OnInit, AfterContentChecked {
   }
 
   loadingMessageDisplay() {
-    console.log('loading message display method called');
     this.dotCount++;
     if (this.dotCount > this.dotLimit) {
       this.dotCount = 0;
@@ -91,7 +90,6 @@ export class DisplayProductsComponent implements OnInit, AfterContentChecked {
       const event = {
         userID: this.userID,
         productName: product.name,
-        category: null,
         co2EmissionsPerUnit: this.co2perkg,
         imageURL: product.imageURL
       };

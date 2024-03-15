@@ -9,8 +9,6 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class VerificationPopupComponent {
   verificationCode: string = '';
-  
-  //@Output() verificationComplete = new EventEmitter<boolean>();
 
   constructor(
     private authService: AuthService,

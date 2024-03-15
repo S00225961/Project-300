@@ -52,7 +52,6 @@ export class ElectricityTrackerComponent implements OnInit {
     if (this.electricityForm.valid) {
       const formData = this.electricityForm.value;
       const { usageInKwh } = formData;
-      console.log("source: " + this.electricitySource);
       switch(this.electricitySource)
       {
         case 'coal':

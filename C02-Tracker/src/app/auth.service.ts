@@ -49,11 +49,7 @@ export class AuthService {
             if (err) {
                 reject(err);
             } else {
-                // After successful Cognito sign up, post the user data to your backend
-                // this.http.post('http://localhost:3000/api/users', { username, email, password, givenName, familyName }).subscribe({
-                //     next: (backendResult) => resolve({ cognitoResult: result, backendResult }),
-                //     error: (backendError) => reject(backendError)
-                // });
+                
             }
         });
     });
@@ -127,20 +123,6 @@ export class AuthService {
         }
       });
     });
-
-    // return new Promise((resolve, reject) => {
-    //   cognitoUser.authenticateUser(authenticationDetails, {
-    //     onSuccess: (result) => {
-    //       console.log('Authentication successful', result);
-    //       this.setAuthenticated(true);
-    //       resolve(result); // User sign-in was successful
-    //     },
-    //     onFailure: (err) => {
-    //       console.error('Authentication failed', err);
-    //       reject(err);
-    //     },
-    //   });
-    // });
   }
 
   // Method to sign out the current user

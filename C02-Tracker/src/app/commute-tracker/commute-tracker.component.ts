@@ -48,7 +48,6 @@ export class CommuteTrackerComponent implements OnInit {
     this.co2Produced = this.calculateCO2();
 
     if (this.co2Produced !== null && !isNaN(this.co2Produced)) {
-      //console.log(`CO2 produced for commute: ${this.co2Produced} kg`);
       const event = {
         userID: this.userID,
         distance: this.commuteForm.value.distance,
