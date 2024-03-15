@@ -9,7 +9,8 @@ import { HttpClient } from '@angular/common/http';
 export class BarcodeService {
 
   constructor(private http: HttpClient) { }
-  private apiUrl = 'https://world.openfoodfacts.net/api/v2/product/{barcode}';
+  private apiUrl = 'https://world.openfoodfacts.org/api/v0/product/';
+  //https://world.openfoodfacts.org/api/v0/product/737628064502.json
   searchItems(query: string): Observable<any>{
     const url = `${this.apiUrl + query}&json=true`;
     return this.http.get<any>(url);
