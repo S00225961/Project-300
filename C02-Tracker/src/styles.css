@@ -110,7 +110,19 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
         min-width: 100px; /* Adjust as needed */
     }
 }
-
+.addStatMessageBackground {
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    border-radius: 50px;
+    background-color: #fff;
+    align-items: center;
+}
+.addStatMessage {
+    text-align: center;
+    padding: 20px;
+    color: #618264;
+}
 .charts {
     display: flex;
     justify-content: center;

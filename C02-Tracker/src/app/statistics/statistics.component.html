@@ -9,7 +9,7 @@
 </div>
 
 
-<div class="card chartCard">
+<div *ngIf="totalCommuteC02 !== 0 && totalElectricityC02 !== 0 && totalProductC02 !== 0" class="card chartCard">
     <div class="card-header">
       <h2 class="text-center">C02 Statistics Charts</h2>
     </div>
@@ -24,5 +24,8 @@
           <canvas id="lineChart"></canvas>
       </div>
     </div>
+</div>
+<div *ngIf="totalCommuteC02 == 0 && totalElectricityC02 == 0 && totalProductC02 == 0" class="addStatMessageBackground">
+    <p class="addStatMessage">Add Data to View Your Statistics!</p>
 </div>
   
